@@ -2,3 +2,4 @@
 /server/public
 /node_modules
 /.idea
+/.gitignore.swp
