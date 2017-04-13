@@ -1,6 +1,6 @@
 import React,{ Component } from 'react'
 import { render } from 'react-dom'
-import { Input,Icon,Button } from 'antd'
+import { Input,Icon,Button,Alert } from 'antd'
 import { post } from 'fetch/request'
 
 class LoginMain extends Component {
@@ -16,9 +16,16 @@ class LoginMain extends Component {
         post('http://127.0.0.1:3000/login.do',{
             user:this.state.user,
             pwd:this.state.pwd
-        }).then((res)=>{
-            this.setState({ loading:false })
-        })
+        }).then(res=>res.json()).then(data=> {
+                var _data=data['success']['data'];
+                this.setState({loading:false})
+                if(_data=="isOK"){
+                    render(
+                        <Alert message="Success login" type="success" showIcon />,
+                        document.getElementById('login-status')
+                    )
+                }
+            })
     }
     handleUser=(e)=>{
         this.setState({user: e.target.value});
@@ -30,6 +37,7 @@ class LoginMain extends Component {
         return (
             <div className="user-login">
                 <h1>electronic Trial Master File System</h1>
+                <div id="login-status"></div>
                 <div>
                     <Input addonBefore={<Icon type="user" />} value={this.state.user} placeholder="Username" onChange={this.handleUser} />
                 </div>

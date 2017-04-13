@@ -2,7 +2,6 @@ const request_host = "http://localhost:91/";        //启用模拟服务器数�
 const request = require('request');
 //get http headers
 
-//提供异数回调数据
 function getRequest(options) {
     var req = options.request;
     var _param = req.body || {};//post

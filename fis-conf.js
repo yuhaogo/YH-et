@@ -11,6 +11,15 @@ fis.set('project.ignore', [
     'package.json',
     '**.md'
 ]);
+fis.match('**.less', {
+    rExt: '.css', // from .less to .css
+    useSprite: true,
+    //optimizer: fis.plugin('clean-css'),
+    parser: fis.plugin('less-2.x', {
+        // fis-parser-less-2.x option
+    }),
+    postprocessor: fis.plugin('autoprefixer')
+});
 fis.match('/client/assets/(**)', {
     release: '${public}/$1',
     url: '/$1'

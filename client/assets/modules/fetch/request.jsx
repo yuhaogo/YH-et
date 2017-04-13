@@ -2,6 +2,24 @@ import 'whatwg-fetch'
 import 'es6-promise'
 //import fetchJsonp from 'fetch-jsonp'
 
+// 将对象拼接成 key1=val1&key2=val2&key3=val3 的字符串形式
+function obj2params(obj) {
+    let result = '';
+    for (let item in obj) {
+        result += '&' + item + '=' + encodeURIComponent(obj[item]);
+    }
+    if (result) {
+        result = result.slice(1);
+    }
+    return result;
+}
+
+function paramsPrefilter(params) {
+    // params = Object.assign(params, {display: 'json'})
+    //params['display'] = 'json'
+    return params;
+}
+
 export function post(url,params) {
     var result=fetch(url,{
         'method':'POST',
@@ -10,7 +28,7 @@ export function post(url,params) {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/x-www-form-urlencoded'// 默认表单提交
         },
-        body:params
+        body:obj2params(paramsPrefilter(params))
     })
     return result
 }
