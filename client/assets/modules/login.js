@@ -13,10 +13,13 @@ class LoginMain extends Component {
 
     enterLoading = () => {
         this.setState({ loading:true })
-        post('http://127.0.0.1:3000/login.do',{
-            user:this.state.user,
-            pwd:this.state.pwd
-        }).then(res=>res.json()).then(data=> {
+        post('http://127.0.0.1:3000/api/User/Login',{
+            Username:this.state.user,
+            PassWord:this.state.pwd
+        }).then(res=>{
+            console.log(res);
+            return res.json();
+        }).then(data=> {
                 var _data=data['success']['data'];
                 this.setState({loading:false})
                 if(_data=="isOK"){

@@ -1,4 +1,4 @@
-const request_host = "http://localhost:91/";        //启用模拟服务器数据
+const request_host = "http://localhost:29680";        //启用模拟服务器数据
 const request = require('request');
 //get http headers
 
@@ -8,7 +8,9 @@ function getRequest(options) {
     /*if(!_param.body){
      _param.body = {};
      }*/
-    var _header = {};
+    var _header = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
     var opts = {
         method:"post",
         baseUrl:config.host,
